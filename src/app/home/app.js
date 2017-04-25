@@ -11,42 +11,34 @@ let app = {
 };
 
 class AppCtrl {
-  constructor(servicesSurvey) {
-      'ngInject';
-      this.servicesSurvey = servicesSurvey;
-      this.activePane = 1;
+    constructor(servicesSurvey) {
+        'ngInject';
+        this.servicesSurvey = servicesSurvey;
+        this.activePane = 1;
 
-      servicesSurvey.get().then(
-          (stages) => {
-              this.stages = stages.data.data;
-              for (let stage in stages.data.data) {
-              }
-              return this.stages
-          }
-      );
+        servicesSurvey.get().then(
+            (stages) = > this.stages = stages.data.data
+        )
+    }
 
-  }
-  setPane(id) {
-      console.log(id)
-      this.activePane = id;
-  }
+    setPane(id) {
+        this.activePane = id;
+    }
 
-  allowNext (stageId) {
-      let stage = _.find(this.stages, ['id', stageId]);
-      let questionLength = stage.questions.length;
-      let answersLength =_.filter(stage.questions, 'answer', !null).length;
+    allowNext(stageId) {
+        let stage = _.find(this.stages, ['id', stageId]);
+        let questionLength = stage.questions.length;
+        let answersLength = _.filter(stage.questions, 'answer', !null).length;
 
-      return answersLength == questionLength
+        return answersLength == questionLength
 
-  }
+    }
 }
 
 const MODULE_NAME = 'app.home';
 
-const homeModule = angular.module(MODULE_NAME, [
-
-])
-  .component('survey', app)
-  .controller('AppCtrl', AppCtrl);
+const homeModule = angular.module(MODULE_NAME, [])
+    .component('survey', app)
+    .controller('AppCtrl', AppCtrl);
 
 export default homeModule;
