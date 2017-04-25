@@ -1,0 +1,11 @@
+<div class="question">
+    <lable>{{question.text}}</lable>
+    <input
+            type="question.inputDetails.type"
+            min="question.inputDetails.min"
+            max="question.inputDetails"
+            ng-model="question.answer"
+            ng-change="question.validate(question.inputDetails.validation)"
+    >
+    <div class="error-message">{{question.error_message}}</div>
+</div>

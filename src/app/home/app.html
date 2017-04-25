@@ -1,4 +1,29 @@
 <main>
   <h1 class="title">Survey</h1>
-  <p>{{ survey.stages }}</p>
+  <div class="survey">
+    <div class="stages">
+      <div
+          class="stage"
+          ng-repeat="stage in survey.stages | orderBy: 'id' track by stage.id"
+      >{{stage.name}}</div>
+    </div>
+    <div class="panes">
+      <div
+          class="pane"
+          ng-repeat="stage in survey.stages | orderBy: 'id' track by stage.id"
+          ng-show="survey.activePane == stage.id"
+      >
+        <h2>{{stage.text}}</h2>
+        <question
+            ng-repeat="stageQuestion in stage.questions | orderBy: 'id' track by stageQuestion.id"
+            text="stageQuestion.text"
+            input-details="stageQuestion.input"
+            question-name="stageQuestion.name"
+            ng-show="$first || stage.questions[$index-1].answer"
+            stage-id="stage.id"
+        ></question>
+        <button ng-show="survey.allowNext(stage.id)" ng-click="survey.setPane(survey.stages[$index+1].id)" class="btn primary next">Next ></button>
+      </div>
+    </div>
+  </div>
 </main>
