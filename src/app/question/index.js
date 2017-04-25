@@ -20,16 +20,16 @@ let questionComponent = {
 class QuestionCtrl {
     constructor($scope, $element, $attrs) {
         this.$scope = $scope;
-    };
+    }
 
     validate(type) {
         let patternMatched = type ? VALIDATION[type].pattern.test(this.answer) : null;
         if (!type || patternMatched) {
             this.$scope.$parent.stageQuestion.answer = this.answer;
-            this.error_message = ''
+            this.error_message = '';
         } else if (type && !patternMatched) {
             this.$scope.$parent.stageQuestion.answer = '';
-            this.error_message = VALIDATION[type].error_message
+            this.error_message = VALIDATION[type].error_message;
         }
     }
 

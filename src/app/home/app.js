@@ -17,7 +17,7 @@ class AppCtrl {
         this.activePane = 1;
 
         servicesSurvey.get().then(
-            (stages) = > this.stages = stages.data.data
+            (stages) => this.stages = stages.data.data
         )
     }
 
