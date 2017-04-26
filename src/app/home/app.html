@@ -5,6 +5,7 @@
             <div
                 class="stage"
                 ng-repeat="stage in survey.stages | orderBy: 'id' track by stage.id"
+                ng-class="{'completed': survey.allowNext(stage.id) && !$last}"
             >{{stage.name}}
             </div>
         </div>
@@ -15,6 +16,13 @@
                 ng-show="survey.activePane == stage.id"
             >
                 <h2>{{stage.text}}</h2>
+                <div class="progress-bar">
+                    <div
+                        class="question-slot"
+                        ng-repeat="stageQuestion in stage.questions | orderBy: 'id' track by stageQuestion.id"
+                        ng-class="{'completed':stageQuestion.answer}"
+                    ></div>
+                </div>
                 <question
                     ng-repeat="stageQuestion in stage.questions | orderBy: 'id' track by stageQuestion.id"
                     text="stageQuestion.text"
@@ -23,8 +31,10 @@
                     ng-show="$first || stage.questions[$index-1].answer"
                     stage-id="stage.id"
                 ></question>
-                <button ng-show="survey.allowNext(stage.id)" ng-click="survey.setPane(survey.stages[$index+1].id)"
-                        class="btn primary next">Next >
+                <button
+                    ng-show="survey.allowNext(stage.id) && !$last"
+                    ng-click="survey.setPane(survey.stages[$index+1].id)"
+                    class="btn next">Next >
                 </button>
             </div>
         </div>

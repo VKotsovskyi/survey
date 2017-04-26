@@ -29,7 +29,7 @@ class AppCtrl {
         let stage = _.find(this.stages, ['id', stageId]);
         let questionLength = stage.questions.length;
         let answersLength = _.filter(stage.questions, 'answer', !null).length;
-
+        
         return answersLength == questionLength
 
     }
